@@ -62,6 +62,8 @@ public class MainActivity extends AppCompatActivity implements updateViewInterfa
         // ****** For the Assignment, students need to add code here to get information from the UI widgets...
         String pizzaSize = "";
         Boolean extraCheese = false;
+        Boolean deliveryOrder = false;
+        String forDelivery = "";
         if(rbSmall.isChecked()) {
             pizzaSize = "Small";
         }
@@ -75,15 +77,21 @@ public class MainActivity extends AppCompatActivity implements updateViewInterfa
         {
             extraCheese = true;
         }
+        if(chkbxDelivery.isChecked()){
+            deliveryOrder = true;
+            pizzaOrderSystem.setDelivery(true);
+            pizzaOrderSystem.getDelivery();
+            forDelivery = "for delivery!";
+        }
 
-        String orderDescription = pizzaOrderSystem.OrderPizza(spinnerToppings.toString(), pizzaSize, extraCheese);
+        String orderDescription = pizzaOrderSystem.OrderPizza(spinnerToppings.getSelectedItem().toString(), pizzaSize, extraCheese);
 
         // ****** For the Practice Activity, students need to call to OrderPizza here
 
         // ****** For the Assignment, students will modify the order to fit the type of pizza the user selects using the UI widgets
 
         //display a pop up message for a long period of time
-        Toast.makeText(getApplicationContext(), "You have ordered a "+orderDescription , Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "You have ordered a "+orderDescription + forDelivery, Toast.LENGTH_LONG).show();
         //get the order total from the order system
         txtTotal.setText("Total Due: " + pizzaOrderSystem.getTotalBill().toString());
         // add this pizza to the textview the lists the pizzas
